@@ -1,0 +1,15 @@
+{
+    "include": ["index.ts", "tsup.config.ts", "test"],
+    "exclude": ["dist"],
+    "compilerOptions": {
+        /* LANGUAGE COMPILATION OPTIONS */
+        "target": "ES2016",
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "noUncheckedIndexedAccess": true,
+        "noEmit": true
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "name": "ts-env",
+    "version": "1.0.0",
+    "description": "Safe environment variables",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsup --format cjs,esm --dts",
+        "dev": "tsup --watch",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "typescript",
+        "node",
+        "ts",
+        "env"
+    ],
+    "author": "Kenneth Pauletti",
+    "license": "ISC",
+    "dependencies": {
+        "typescript": "^5.1.6",
+        "zod": "^3.22.1"
+    },
+    "devDependencies": {
+        "@changesets/cli": "^2.26.2",
+        "@types/node": "^20.5.0",
+        "tsup": "^7.2.0"
+    }
+}
