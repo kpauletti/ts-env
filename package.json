@@ -1,5 +1,5 @@
 {
-    "name": "ts-env",
+    "name": "@kpauletti/ts-env",
     "version": "1.0.0",
     "description": "Safe environment variables",
     "main": "dist/index.js",
