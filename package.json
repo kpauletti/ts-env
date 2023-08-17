@@ -21,7 +21,6 @@
     "author": "Kenneth Pauletti",
     "license": "ISC",
     "dependencies": {
-        "typescript": "^5.1.6",
         "zod": "^3.22.1"
     },
     "devDependencies": {
@@ -30,6 +29,7 @@
         "@types/node": "^20.5.0",
         "jest": "^29.6.2",
         "ts-jest": "^29.1.1",
-        "tsup": "^7.2.0"
+        "tsup": "^7.2.0",
+        "typescript": "^5.1.6"
     }
 }
