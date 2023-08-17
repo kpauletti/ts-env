@@ -1,6 +1,6 @@
 {
     "name": "@kpauletti/ts-env",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Safe environment variables",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -31,5 +31,10 @@
         "ts-jest": "^29.1.1",
         "tsup": "^7.2.0",
         "typescript": "^5.1.6"
-    }
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "readme.md"
+    ]
 }
