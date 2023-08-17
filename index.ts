@@ -69,7 +69,7 @@ type EnvOpts = {
     defaults?: boolean;
 };
 
-export const getEnv = (schema: Schema | SchemaArray, opts?: EnvOpts) => {
+export const getEnv = <T extends {[key: string]: string}>(schema: Schema | SchemaArray, opts?: EnvOpts) => {
     throwIfInvalid(schema);
 
     const _schema = Array.isArray(schema)
@@ -79,8 +79,8 @@ export const getEnv = (schema: Schema | SchemaArray, opts?: EnvOpts) => {
 
     if (parsed.success === false) {
         opts?.onValidationError ? opts.onValidationError(parsed.error) : onValidationError(parsed.error);
-        return;
+        throw new Error("Invalid env variables");
     }
 
-    return parsed.data as any;
+    return parsed.data as T;
 };
