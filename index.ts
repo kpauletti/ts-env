@@ -69,7 +69,7 @@ type EnvOpts = {
     defaults?: boolean;
 };
 
-export const getEnv = <T extends {}>(schema: Schema | SchemaArray, opts?: EnvOpts) => {
+export const getEnv = <T extends {[key: string]: string}>(schema: Schema | SchemaArray, opts?: EnvOpts) => {
     throwIfInvalid(schema);
 
     const _schema = Array.isArray(schema)
