@@ -74,3 +74,17 @@ test('ts-env: It should be able to create complex zod schemas', () => {
 
     expect(() => getEnv(schema)).toThrowError("Invalid env variables");
 });
+
+test('ts-env: It should be able to pass a custom onValidationError function', () => {
+
+    const onValidationError = (error: z.ZodError) => {
+        const missingEnvs = Object.keys(error.flatten().fieldErrors)
+        throw new Error('Looks like you forgot: ' + missingEnvs.join(', '));
+    }
+
+    const schema = {
+        foo: z.string(),
+    }
+
+    expect(() => getEnv(schema, { onValidationError })).toThrowError("Looks like you forgot: foo");
+})
