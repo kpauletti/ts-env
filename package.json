@@ -1,6 +1,6 @@
 {
     "name": "@kpauletti/ts-env",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Safe environment variables",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -20,6 +20,10 @@
     ],
     "author": "Kenneth Pauletti",
     "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kpauletti/ts-env"
+    },
     "dependencies": {
         "zod": "^3.22.1"
     },
