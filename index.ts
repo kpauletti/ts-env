@@ -4,9 +4,13 @@ export { z } from "zod";
 type Simplify<T> = { [P in keyof T]: T[P] } & {};
 type Schema = Record<string, ZodType>;
 
+interface Options {
+    onValidationError?: (error: ZodError) => void;
+    skipValidation?: boolean;
+}
+
 const onValidationError = (error: ZodError) => {
     console.error("Invalid env variables:", error.flatten().fieldErrors);
-    throw new Error("Invalid env variables");
 };
 
 const isValidSchema = (obj: Schema) => {
@@ -23,23 +27,22 @@ const isValidSchema = (obj: Schema) => {
     }
 };
 
-type EnvOpts = {
-    onValidationError?: (error: ZodError) => void;
-};
-
 export const getEnv = <T extends Schema>(
     schema: T,
-    opts?: EnvOpts
+    opts?: Options
 ): Readonly<Simplify<z.infer<ZodObject<T>>>> => {
+
+    if(opts?.skipValidation) return process.env as any;
+
+    const validationError = opts?.onValidationError ?? onValidationError;
     
     isValidSchema(schema);
     
     const _schema = z.object(schema);
     const parsed = _schema.safeParse(process.env);
 
-
     if (parsed.success === false) {
-        opts?.onValidationError ? opts.onValidationError(parsed.error) : onValidationError(parsed.error);
+        validationError(parsed.error);
         throw new Error("Invalid env variables");
     }
 
