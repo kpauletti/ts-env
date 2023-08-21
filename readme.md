@@ -28,16 +28,7 @@ exports.env = getEnv({
 ```ts
 import { getEnv, z } from '@kpauletti/ts-env';
 
-interface Env {
-    DB_HOST: string
-    DB_PORT: string
-    DB_USER: string
-    DB_PASS: string
-    APP_ENV: string
-    SOME_TOKEN: string
-}
-
-export const env = getEnv<Env>({
+export const env = getEnv({
     DB_HOST: z.string().default('localhost'),
     DB_PORT: z.string().default('1337'),
     DB_USER: z.string(),
