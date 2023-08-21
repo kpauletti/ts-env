@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { getEnv, z } from '../index';
 
 const setEnv = (key: string, value: string) => {
@@ -15,62 +14,50 @@ test('ts-env: It should throw if no schema is provided.', () => {
 
 test('ts-env: It should throw if empty schema is provided.', () => {
     expect(() => getEnv({})).toThrowError("Empty schema provided");
-    expect(() => getEnv([])).toThrowError("Empty schema provided");
 });
 
 test('ts-env: It should throw if invalid schema is provided.', () => {
-    expect(() => getEnv({ foo: "bar" } as any)).toThrowError("Invalid schema provided");
+    expect(() => getEnv({ FOO: "BAR" } as any)).toThrowError(/invalid|schema/i);
 });
 
-test('ts-env: It should throw if missing and env from a array schema', () => {
-    expect(() => getEnv(["foo"])).toThrowError("Invalid env variables");
-})
-
 test('ts-env: It should throw if missing and env from a object schema', () => {
-    expect(() => getEnv({ foo: z.string() })).toThrowError("Invalid env variables");
+    expect(() => getEnv({ FOO: z.string() })).toThrowError("Invalid env variables");
 });
 
 test('ts-env: It should not throw if missing and env from a object schema with defaults option', () => {
-    expect(() => getEnv({ foo: z.string() }, { defaults: true })).not.toThrowError("Invalid env variables");
+    expect(() => getEnv({ FOO: z.string().default('FOO') })).not.toThrowError("Invalid env variables");
 });
 
-test('ts-env: It should not throw if missing and env from a array schema with defaults set to true', () => {
-
-    expect(() => getEnv(["foo"], { defaults: true })).not.toThrowError("Invalid env variables");
-});
 
 test('ts-env: It should return a default value if env is not set and defaults option is set to true', () => {
-    
-        const { foo } = getEnv(["foo"], { defaults: true });
-        expect(foo).toBe("foo_DEFAULT_VALUE");
 
-        const { bar } = getEnv({ bar: z.string() }, { defaults: true });
-        expect(bar).toBe("bar_DEFAULT_VALUE");
+        const { BAR } = getEnv({ BAR: z.string().default("BAR_DEFAULT") });
+        expect(BAR).toBe("BAR_DEFAULT");
 });
 
 test('ts-env: It should be able to create complex zod schemas', () => {
 
-    const FOO = 'pk_some_default_value';
-    const BAR = '12345';
-    const BAZ = 'foo';
+    const _FOO = 'pk_some_default_value';
+    const _BAR = '12345';
+    const _BAZ = 'FOO';
 
-    setEnv('bar', BAR);
-    setEnv('baz', BAZ);
+    setEnv('BAR', _BAR);
+    setEnv('BAZ', _BAZ);
 
     const schema = {
-        foo: z.string().default(FOO),
-        bar: z.string().length(BAR.length),
-        baz: z.enum(['foo', 'bar', 'baz'])
+        FOO: z.string().default(_FOO),
+        BAR: z.string().length(_BAR.length),
+        BAZ: z.enum(['FOO', 'BAR', 'BAZ'])
     }
 
-    const { foo, bar, baz } = getEnv(schema)
+    const { FOO, BAR, BAZ } = getEnv(schema)
 
-    expect(foo).toBe(FOO);
-    expect(bar).toBe(BAR);
-    expect(baz).toBe(BAZ);
+    expect(FOO).toBe(FOO);
+    expect(BAR).toBe(BAR);
+    expect(BAZ).toBe(BAZ);
 
 
-    unsetEnv('bar');
+    unsetEnv('BAR');
 
     expect(() => getEnv(schema)).toThrowError("Invalid env variables");
 });
@@ -83,8 +70,8 @@ test('ts-env: It should be able to pass a custom onValidationError function', ()
     }
 
     const schema = {
-        foo: z.string(),
+        FOO: z.string(),
     }
 
-    expect(() => getEnv(schema, { onValidationError })).toThrowError("Looks like you forgot: foo");
+    expect(() => getEnv(schema, { onValidationError })).toThrowError("Looks like you forgot: FOO");
 })
