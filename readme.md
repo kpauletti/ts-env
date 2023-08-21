@@ -5,25 +5,11 @@ Simple utility to validate environment variables
 ## Description
 
 No more console logging to see if correct environment variables are set, with [zod](https://zod.dev/) 
-we can validate envs at runtime or buildtime, set detaults, and enforce strict schemas. 
+we can validate envs at runtime or build-time, set defaults, and enforce strict schemas. 
 
 ## Getting Started
 
-Create an `env.js` file.
-
-```js
-const { getEnv, z } = require('@kpauletti/ts-env')
-
-exports.env = getEnv({
-    DB_HOST: z.string().default('localhost'),
-    DB_PORT: z.string().default('1337'),
-    DB_USER: z.string(),
-    DB_PASS: z.string(),
-    APP_ENV: z.enum(['development', 'staging', 'qa', 'production']),
-    SOME_TOKEN: z.string().optional()
-})
-```
-
+Create an `env.ts` file.
 
 ```ts
 import { getEnv, z } from '@kpauletti/ts-env';
@@ -40,20 +26,22 @@ export const env = getEnv({
 
 Now wherever you need to reference an env variable
 
-```js
+```ts
+import { env } from '../utils/env'
 
-import { env } from '@/env'
-
-const db = await connect({
+await connect({
     host: env.DB_HOST,
-    port: env.DB_PASS,
+    port: env.DB_PORT,
     auth: {
         user: env.DB_USER,
-        password: env.DB_PASS
+        pass: env.DB_PASS
     }
-
 })
 ```
+
+Provides autocomplete for your environment variables as well.
+
+![gif](https://s11.gifyu.com/images/SgTOK.gif)
 
 ## Authors
 
