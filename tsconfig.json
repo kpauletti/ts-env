@@ -3,7 +3,7 @@
     "exclude": ["dist"],
     "compilerOptions": {
         /* LANGUAGE COMPILATION OPTIONS */
-        "target": "ES2016",
+        "target": "ES2020",
         "module": "CommonJS",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,

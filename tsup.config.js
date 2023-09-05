@@ -7,7 +7,6 @@ export default defineConfig((opts) => ({
   dts: true,
   clean: !opts.watch,
   sourcemap: true,
-  minify: true,
   outDir: "dist",
   target: "es2020",
 }));
